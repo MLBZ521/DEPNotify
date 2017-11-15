@@ -2,8 +2,10 @@ v. 1.0 - Initial commit of DEPNotify
 v. 1.0.1 - Added "EnableJamf:", "LogoutNow:", "NotificationImage:", Window Styles "Activate" and "ActivateOnStep", "Restart:" and "RestartNow:" -- June 13, 2017
 
 
-## Fork:  dev
+## Fork:  ProgressView
 **v0.1**
 + Converted Status Text (NSTextField) in the View Controller to a Scroll View (NSScrollView)
 **v0.2**
 + Further updates to the ViewController/StoryBoard
+**v0.3**
++ Converted to Swift v4

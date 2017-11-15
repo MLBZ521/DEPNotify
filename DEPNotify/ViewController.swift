@@ -62,9 +62,9 @@ class ViewController: NSViewController {
         let window = self.view.window
         
         if !CommandLine.arguments.contains("-oldskool") {
-            window?.styleMask.insert(NSWindowStyleMask.unifiedTitleAndToolbar)
-            window?.styleMask.insert(NSWindowStyleMask.fullSizeContentView)
-            window?.styleMask.insert(NSWindowStyleMask.titled)
+            window?.styleMask.insert(NSWindow.StyleMask.unifiedTitleAndToolbar)
+            window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
+            window?.styleMask.insert(NSWindow.StyleMask.titled)
             window?.toolbar?.isVisible = false
             window?.titleVisibility = .hidden
             window?.titlebarAppearsTransparent = true
@@ -346,6 +346,6 @@ class ViewController: NSViewController {
         NSUserNotificationCenter.default.deliver(notification)
     }
     @IBAction func HelpClick(_ sender: Any) {
-        NSWorkspace.shared().open(URL(string: helpURL)!)
+        NSWorkspace.shared.open(URL(string: helpURL)!)
     }
 }

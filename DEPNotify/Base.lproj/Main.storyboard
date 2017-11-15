@@ -670,7 +670,7 @@
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
-                            <outlet property="delegate" destination="B8D-0N-5wS" id="3G6-s9-6FD"/>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="W7g-hn-s7s"/>
                         </connections>
                     </window>
                     <userDefinedRuntimeAttributes>
@@ -700,12 +700,12 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DEPNotify" id="vcg-o4-XhS"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rr0-9Z-XLa">
-                                <rect key="frame" x="256" y="245" width="386" height="102"/>
+                                <rect key="frame" x="256" y="245" width="378" height="102"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="pDc-h3-Pop">
                                     <font key="font" metaFont="system"/>
                                     <string key="title">
-Welcome to your new Mac!  We are installing software and configuring your system.  This process should only take a few minutes.  Upon completion this window will close.</string>
+Welcome to your new Mac!  We are installing software and configuring your system.  You can use your system during this time and will be notified once this process is complete.</string>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
