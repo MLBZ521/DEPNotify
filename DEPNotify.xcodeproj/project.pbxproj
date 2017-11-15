@@ -193,18 +193,15 @@
 				TargetAttributes = {
 					1A60598A1E55D6E90085B55F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = VRPY9KHGX6;
 						ProvisioningStyle = Automatic;
 					};
 					1A60599B1E55D6EA0085B55F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = AAPZK3CB24;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A60598A1E55D6E90085B55F;
 					};
 					1A6059A61E55D6EA0085B55F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = AAPZK3CB24;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1A60598A1E55D6E90085B55F;
 					};
@@ -407,7 +404,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = VRPY9KHGX6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DEPNotify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -425,7 +422,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = VRPY9KHGX6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DEPNotify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;

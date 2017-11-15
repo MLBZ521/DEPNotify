@@ -110,11 +110,16 @@ class TrackProgress: NSObject {
 
         for line in allCommands {
             switch line.components(separatedBy: " ").first! {
+            
             case "Status:" :
                 statusText = line.replacingOccurrences(of: "Status: ", with: "")
             case "Command:" :
                 command = line.replacingOccurrences(of: "Command: ", with: "")
             default:
+
+                
+                
+                
                 switch additionalPath {
                 case OtherLogs.jamf :
                     if line.contains("jamf[") && ( line.contains("Installing") || line.contains("Executing")) {
@@ -153,6 +158,8 @@ class TrackProgress: NSObject {
                 default:
                     break
                 }
+                
+                
                 break
             }
         }

@@ -15,11 +15,12 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var MainText: NSTextField!
     @IBOutlet weak var ProgressBar: NSProgressIndicator!
-    @IBOutlet weak var StatusText: NSTextField!
     @IBOutlet weak var LogoCell: NSImageCell!
     @IBOutlet var myView: NSView!
     @IBOutlet weak var helpButton: NSButton!
 
+    @IBOutlet var StatusTest: NSTextView!
+    
     var tracker = TrackProgress()
 
     var helpURL = String()
@@ -76,10 +77,11 @@ class ViewController: NSViewController {
         }
     }
 
-    func updateStatus(status: String) {
 
-        self.StatusText.stringValue = status
-        print(self.StatusText.stringValue)
+    func updateStatus(status: String) {
+        self.StatusTest.textStorage?.append(NSAttributedString(string: status + "\n"))
+        self.StatusTest.scrollToEndOfDocument(Any?.self)
+        print("Current:  " + status)
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
