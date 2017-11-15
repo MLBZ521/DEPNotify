@@ -3,4 +3,7 @@ v. 1.0.1 - Added "EnableJamf:", "LogoutNow:", "NotificationImage:", Window Style
 
 
 ## Fork:  dev
-v0.1 = Converted Status Text (NSTextField) in the View Controller to a Scroll View (NSScrollView)
+**v0.1**
++ Converted Status Text (NSTextField) in the View Controller to a Scroll View (NSScrollView)
+**v0.2**
++ Further updates to the ViewController/StoryBoard
