@@ -437,10 +437,10 @@ class WindowController: NSWindowController {
             self.window?.center()
             self.window?.isMovable = false
             
-            background = storyboard?.instantiateController(withIdentifier: "Background") as? Background
+            background = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Background")) as? Background
             background?.showWindow(self)
             background?.sendBack()
-            NSApp.windows[0].level = Int(CGWindowLevelForKey(.maximumWindow))
+            NSApp.windows[0].level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
         }
     }
 }
