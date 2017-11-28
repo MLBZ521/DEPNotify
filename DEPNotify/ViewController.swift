@@ -47,6 +47,7 @@ class ViewController: NSViewController {
     
     let myWorkQueue = DispatchQueue(label: "menu.nomad.DEPNotify.background_work_queue", attributes: [])
     
+   var agreementButton : Bool? = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,11 +65,11 @@ class ViewController: NSViewController {
         
         NSApp.windows[0].makeKeyAndOrderFront(self)
         
-        NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
+        NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.flagsChanged) {
             self.flagsChanged(with: $0)
             return $0
         }
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+        NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.keyDown) {
             self.keyDown(with: $0)
             return $0
         }
@@ -79,9 +80,9 @@ class ViewController: NSViewController {
         let window = self.view.window
         
         if !CommandLine.arguments.contains("-oldskool") {
-            window?.styleMask.insert(NSWindowStyleMask.unifiedTitleAndToolbar)
-            window?.styleMask.insert(NSWindowStyleMask.fullSizeContentView)
-            window?.styleMask.insert(NSWindowStyleMask.titled)
+            window?.styleMask.insert(NSWindow.StyleMask.unifiedTitleAndToolbar)
+            window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
+            window?.styleMask.insert(NSWindow.StyleMask.titled)
             window?.toolbar?.isVisible = false
             window?.titleVisibility = .hidden
             window?.titlebarAppearsTransparent = true
@@ -142,6 +143,15 @@ class ViewController: NSViewController {
             alertController.addButton(withTitle: "Ok")
             alertController.beginSheetModal(for: NSApp.windows[0])
             
+        // Put a Continue button at the bottom of the screen
+        case "ContinueButton" :
+            continueButton.isHidden = false
+
+        // Put a Continue button at the bottom of the screen to display an EULA
+        case "ContinueButtonAgreement" :
+            continueButton.isHidden = false
+            agreementButton = true
+
         case "Determinate:" :
             
             determinate = true
@@ -192,9 +202,6 @@ class ViewController: NSViewController {
         case "Help:" :
             helpButton.isHidden = false
             helpURL = command.replacingOccurrences(of: "Help: ", with: "")
-            
-        case "ContinueButton" :
-            continueButton.isHidden = false
             
         case "Image:" :
             logo = NSImage.init(byReferencingFile: command.replacingOccurrences(of: "Image: ", with: ""))
@@ -403,22 +410,63 @@ class ViewController: NSViewController {
         NSUserNotificationCenter.default.deliver(notification)
     }
     @IBAction func HelpClick(_ sender: Any) {
-        NSWorkspace.shared().open(URL(string: helpURL)!)
+        NSWorkspace.shared.open(URL(string: helpURL)!)
     }
+
     
+    // Function to either quit by hitting the Continue button of to show a EULA
     @IBAction func continueButton(_ sender: Any) {
-        let fileMgr = FileManager()
-        let pathDone = "/Users/Shared/.DEPNotifyDone"
-        fileMgr.createFile(atPath: pathDone, contents: nil, attributes: nil)
-        NSApp.terminate(self)
+        let conditional = agreementButton
+        if conditional == true {
+            do {
+                let storyBoard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)  as NSStoryboard
+                let myViewController = storyBoard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "SheetViewController")) as! NSViewController
+                self.presentViewControllerAsSheet(myViewController)
+
+            }
+        }
+        else {
+            //Write .DEPNotifyDone file to disk
+
+            let DEPKey = true
+            let EULAKey = false
+
+            // Write Done File
+            self.view.window?.close()
+            let fileMgr = FileManager()
+            let pathDone = "/Users/Shared/.DEPNotifyDone"
+            fileMgr.createFile(atPath: pathDone, contents: nil, attributes: nil)
+
+            // Set timestamp
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+            let dateInFormat = dateFormatter.string(from: Date())
+            print (dateInFormat)
+
+            // Write plist file
+            let plistPath = "/Users/Shared/DEPNotify.plist"
+            let dict : [String: Any] = [
+                "DEPNotifyDone": DEPKey,
+                "EULA Acceptance": EULAKey,
+                "Onboarding Date": dateInFormat,
+                // any other key values
+            ]
+            let someData = NSDictionary(dictionary: dict)
+            let isWritten = someData.write(toFile: plistPath, atomically: true)
+            print("is the file created: \(isWritten)")
+
+            //NSApp.terminate(self)
+            NSApp.terminate(nil)
+
+        }
     }
     
     // Key pressing
     
     override func keyDown(with event: NSEvent) {
         
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
-        case [.command, .control] where event.charactersIgnoringModifiers == quitKey:
+        switch event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) {
+        case [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.control] where event.charactersIgnoringModifiers == quitKey:
             NSApp.terminate(nil)
         default:
             break
@@ -437,10 +485,10 @@ class WindowController: NSWindowController {
             self.window?.center()
             self.window?.isMovable = false
             
-            background = storyboard?.instantiateController(withIdentifier: "Background") as? Background
+            background = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Background")) as? Background
             background?.showWindow(self)
             background?.sendBack()
-            NSApp.windows[0].level = Int(CGWindowLevelForKey(.maximumWindow))
+            NSApp.windows[0].level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
         }
     }
 }
